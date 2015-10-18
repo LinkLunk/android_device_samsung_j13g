@@ -59,7 +59,6 @@ done
 
 # Pick up overlay for features that depend on non-open-source files
 PRODUCT_PACKAGES += \\
-	libandroid_runtime
 
 
 \$(call inherit-product, vendor/samsung/j13g/j13g-vendor-blobs.mk)
@@ -86,15 +85,15 @@ LOCAL_PATH := \$(call my-dir)
 
 ifeq (\$(TARGET_DEVICE),j13g)
 
-include \$(CLEAR_VARS)
-LOCAL_MODULE := libandroid_runtime
-LOCAL_MODULE_OWNER := $VENDOR
-LOCAL_SRC_FILES := proprietary/vendor/lib/libandroid_runtime.so
-LOCAL_MODULE_PATH := \$(TARGET_OUT_VENDOR_SHARED_LIBRARIES)
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_SUFFIX := .so
-LOCAL_MODULE_CLASS := SHARED_LIBRARIES
-include \$(BUILD_PREBUILT)
+#include \$(CLEAR_VARS)
+#LOCAL_MODULE := libandroid_runtime
+#LOCAL_MODULE_OWNER := $VENDOR
+#LOCAL_SRC_FILES := proprietary/vendor/lib/libandroid_runtime.so
+#LOCAL_MODULE_PATH := \$(TARGET_OUT_VENDOR_SHARED_LIBRARIES)
+#LOCAL_MODULE_TAGS := optional
+#LOCAL_MODULE_SUFFIX := .so
+#LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+#include \$(BUILD_PREBUILT)
 
 endif
 
