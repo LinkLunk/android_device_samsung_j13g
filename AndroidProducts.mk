@@ -1,2 +1,2 @@
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/cm_j13g.mk
+    $(LOCAL_DIR)/omni_j13g.mk
