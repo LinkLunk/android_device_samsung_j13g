@@ -1,3 +1,13 @@
+From 59f6f26eedae5a477260dc1acedbad2355f54c4c Mon Sep 17 00:00:00 2001
+From: CTXz <patrick_pedersen_02032001@yahoo.com>
+Date: Wed, 21 Oct 2015 16:01:32 +0200
+Subject: [PATCH 1/1] libandroid_runtime breaking patch
+
+---
+ core/jni/android/graphics/Paint.cpp |  4 ----
+ core/jni/android_view_Surface.cpp   | 28 ----------------------------
+ 2 files changed, 32 deletions(-)
+
 diff --git a/core/jni/android/graphics/Paint.cpp b/core/jni/android/graphics/Paint.cpp
 index 6b02326..7878e76 100644
 --- a/core/jni/android/graphics/Paint.cpp
@@ -68,3 +78,6 @@ index 35a0b40..078c90d 100644
      {"nHwuiSetSurface", "(JJ)V", (void*) hwui::setSurface },
      {"nHwuiDraw", "(J)V", (void*) hwui::draw },
      {"nHwuiDestroy", "(J)V", (void*) hwui::destroy },
+-- 
+2.1.4
+
