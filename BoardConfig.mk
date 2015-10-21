@@ -5,6 +5,10 @@ USE_CAMERA_STUB := true
 # Define Headers
 TARGET_SPECIFIC_HEADER_PATH := device/samsung/j13g/include
 
+
+# Assert
+TARGET_OTA_ASSERT_DEVICE := j13g,J100H,SM-J100H
+
 # inherit from the proprietary version
 -include vendor/samsung/j13g/BoardConfigVendor.mk
 
