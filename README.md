@@ -1,8 +1,9 @@
-# TWRP tree for Samsung Galaxy J1 (J100H) by CTXz
+#CyanogenMod 12.1 Device Tree for Samsung Galaxy J1 (J100H) by CTXz
 
-Team Win Recovery Project device tree for the Galaxy J1 (J100H)
+Before you start please apply patches by running :
 
-By CTXz
+> sh patch/apply.sh
+
 
 
 
