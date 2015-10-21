@@ -32,6 +32,9 @@ BOARD_MKBOOTIMG_ARGS := --dt device/samsung/j13g/dt.img
 TARGET_KERNEL_SOURCE := kernel/samsung/j13g
 TARGET_KERNEL_CONFIG := j13g-dt_hw01_defconfig
 
+#Use file-based OTA instead
+BLOCK_BASED_OTA := false
+
 # fix this up by examining /proc/mtd on a running device
 BOARD_BOOTIMAGE_PARTITION_SIZE := 0x105c0000
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x105c0000
