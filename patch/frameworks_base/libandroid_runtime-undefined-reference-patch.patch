@@ -1,0 +1,70 @@
+diff --git a/core/jni/android/graphics/Paint.cpp b/core/jni/android/graphics/Paint.cpp
+index 6b02326..7878e76 100644
+--- a/core/jni/android/graphics/Paint.cpp
++++ b/core/jni/android/graphics/Paint.cpp
+@@ -805,10 +805,6 @@ public:
+         if (radius <= 0) {
+             paint->setLooper(NULL);
+         }
+-        else {
+-            SkScalar sigma = android::uirenderer::Blur::convertRadiusToSigma(radius);
+-            paint->setLooper(SkBlurDrawLooper::Create((SkColor)color, sigma, dx, dy))->unref();
+-        }
+     }
+ 
+     static jboolean hasShadowLayer(JNIEnv* env, jobject clazz, jlong paintHandle) {
+diff --git a/core/jni/android_view_Surface.cpp b/core/jni/android_view_Surface.cpp
+index 35a0b40..078c90d 100644
+--- a/core/jni/android_view_Surface.cpp
++++ b/core/jni/android_view_Surface.cpp
+@@ -398,42 +398,15 @@ namespace uirenderer {
+ 
+ using namespace android::uirenderer::renderthread;
+ 
+-class ContextFactory : public IContextFactory {
+-public:
+-    virtual AnimationContext* createAnimationContext(renderthread::TimeLord& clock) {
+-        return new AnimationContext(clock);
+-    }
+-};
+-
+-static jlong create(JNIEnv* env, jclass clazz, jlong rootNodePtr, jlong surfacePtr) {
+-    RenderNode* rootNode = reinterpret_cast<RenderNode*>(rootNodePtr);
+-    sp<Surface> surface(reinterpret_cast<Surface*>(surfacePtr));
+-    ContextFactory factory;
+-    RenderProxy* proxy = new RenderProxy(false, rootNode, &factory);
+-    proxy->loadSystemProperties();
+-    proxy->setSwapBehavior(kSwap_discardBuffer);
+-    proxy->initialize(surface);
+-    // Shadows can't be used via this interface, so just set the light source
+-    // to all 0s. (and width & height are unused, TODO remove them)
+-    proxy->setup(0, 0, (Vector3){0, 0, 0}, 0, 0, 0);
+-    return (jlong) proxy;
+-}
+-
+ static void setSurface(JNIEnv* env, jclass clazz, jlong rendererPtr, jlong surfacePtr) {
+-    RenderProxy* proxy = reinterpret_cast<RenderProxy*>(rendererPtr);
+     sp<Surface> surface(reinterpret_cast<Surface*>(surfacePtr));
+-    proxy->updateSurface(surface);
+ }
+ 
+ static void draw(JNIEnv* env, jclass clazz, jlong rendererPtr) {
+-    RenderProxy* proxy = reinterpret_cast<RenderProxy*>(rendererPtr);
+     nsecs_t frameTimeNs = systemTime(CLOCK_MONOTONIC);
+-    proxy->syncAndDrawFrame(frameTimeNs, 0, 1.0f);
+ }
+ 
+ static void destroy(JNIEnv* env, jclass clazz, jlong rendererPtr) {
+-    RenderProxy* proxy = reinterpret_cast<RenderProxy*>(rendererPtr);
+-    delete proxy;
+ }
+ 
+ } // uirenderer
+@@ -469,7 +442,6 @@ static JNINativeMethod gSurfaceMethods[] = {
+     {"nativeGetHeight", "(J)I", (void*)nativeGetHeight },
+ 
+     // HWUI context
+-    {"nHwuiCreate", "(JJ)J", (void*) hwui::create },
+     {"nHwuiSetSurface", "(JJ)V", (void*) hwui::setSurface },
+     {"nHwuiDraw", "(J)V", (void*) hwui::draw },
+     {"nHwuiDestroy", "(J)V", (void*) hwui::destroy },
