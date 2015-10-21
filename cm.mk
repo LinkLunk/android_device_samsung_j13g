@@ -1,3 +1,5 @@
+LOCAL_PATH := device/samsung/j13g
+
 # Inherit device configuration
 $(call inherit-product, device/samsung/j13g/device_j13g.mk)
 
